@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Text;
+using My.RabbitMQ.Config;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -17,7 +18,7 @@ public class RpcClient
 
     public RpcClient()
     {
-        connection = CreateConnection();
+        connection = MQConnection.CreateConnection();
         channel = connection.CreateModel();
         replyQueueName = channel.QueueDeclare().QueueName;
         consumer = new EventingBasicConsumer(channel);
@@ -58,18 +59,5 @@ public class RpcClient
     public void Close()
     {
         connection.Close();
-    }
-    //实例化连接
-    IConnection CreateConnection()
-    {
-        var factory = new ConnectionFactory
-        {
-            HostName = "localhost",
-            UserName = "admin",
-            Password = "admin",
-            Port = 5672,
-            //VirtualHost= "myRabbit"
-        };
-        return factory.CreateConnection();
     }
 }

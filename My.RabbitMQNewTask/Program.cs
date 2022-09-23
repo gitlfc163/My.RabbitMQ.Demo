@@ -1,9 +1,10 @@
 ﻿//发送消息
+using My.RabbitMQ.Config;
 using RabbitMQ.Client;
 using System.Text;
 
 //建立连接
-using (var connection = CreateConnection())
+using (var connection = MQConnection.CreateConnection())
 
 //创建信道
 using (var channel = connection.CreateModel())
@@ -38,22 +39,6 @@ using (var channel = connection.CreateModel())
 
 }
 
-/// <summary>
-/// 实例化连接
-/// </summary>
-/// <returns></returns>
-static IConnection CreateConnection()
-{
-    var factory = new ConnectionFactory
-    {
-        HostName = "localhost",
-        UserName = "admin",
-        Password = "admin",
-        Port = 5672,
-        //VirtualHost= "myRabbit"
-    };
-    return factory.CreateConnection();
-}
 //获取消息
 string GetMessage(string[] args)
 {

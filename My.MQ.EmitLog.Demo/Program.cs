@@ -1,10 +1,11 @@
 ﻿// 日志消息示例
 
+using My.RabbitMQ.Config;
 using RabbitMQ.Client;
 using System.Text;
 
 //建立连接
-using (var connection = CreateConnection())
+using (var connection = MQConnection.CreateConnection())
 //创建信道
 using (var channel = connection.CreateModel())
 {
@@ -22,19 +23,6 @@ using (var channel = connection.CreateModel())
 Console.WriteLine(" Press [enter] to exit.");
 Console.ReadLine();
 
-//实例化连接
-static IConnection CreateConnection()
-{
-    var factory = new ConnectionFactory
-    {
-        HostName = "localhost",
-        UserName = "admin",
-        Password = "admin",
-        Port = 5672,
-        //VirtualHost= "myRabbit"
-    };
-    return factory.CreateConnection();
-}
 static string GetMessage(string[] args)
 {
     return ((args.Length > 0) ? string.Join(" ", args) : "info: Hello World!");

@@ -1,4 +1,4 @@
 # My.RabbitMQ.Demo
 
-[Ïà¹ØÎÄÕÂ](https://www.yuque.com/longfc/net.core/bsk42h)   
-[¹ÙÍø](https://www.rabbitmq.com/getstarted.html)
+[ç›¸å…³æ–‡ç« ](https://www.yuque.com/longfc/net.core/bsk42h)   
+[å®˜ç½‘](https://www.rabbitmq.com/getstarted.html)

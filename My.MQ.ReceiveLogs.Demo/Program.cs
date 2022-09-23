@@ -2,25 +2,13 @@
 
 
 //实例化连接
+using My.RabbitMQ.Config;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
-static IConnection CreateConnection()
-{
-    var factory = new ConnectionFactory
-    {
-        HostName = "localhost",
-        UserName = "admin",
-        Password = "admin",
-        Port = 5672,
-        //VirtualHost= "myRabbit"
-    };
-    return factory.CreateConnection();
-}
-
 //建立连接
-using (var connection = CreateConnection())
+using (var connection = MQConnection.CreateConnection())
 using (var channel = connection.CreateModel())
 {
     //声明交换机类型为Fanout,交换机名称为"logs"的交换机

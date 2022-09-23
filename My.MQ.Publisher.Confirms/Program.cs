@@ -1,5 +1,6 @@
 ﻿// 消息确认
 
+using My.RabbitMQ.Config;
 using RabbitMQ.Client;
 using System.Collections.Concurrent;
 using System.Diagnostics;
@@ -17,29 +18,12 @@ class Program
     }
 
     /// <summary>
-    /// 实例化连接
-    /// </summary>
-    /// <returns></returns>
-    private static IConnection CreateConnection()
-    {
-        var factory = new ConnectionFactory
-        {
-            HostName = "localhost",
-            UserName = "admin",
-            Password = "admin",
-            Port = 5672,
-            //VirtualHost= "myRabbit"
-        };
-        return factory.CreateConnection();
-    }
-
-    /// <summary>
     /// 逐一发布消息
     /// </summary>
     private static void PublishMessagesIndividually()
     {
         //建立连接
-        using (var connection = CreateConnection())
+        using (var connection = MQConnection.CreateConnection())
         //创建信道
         using (var channel = connection.CreateModel())
         {
@@ -69,7 +53,7 @@ class Program
     private static void PublishMessagesInBatch()
     {
         //建立连接
-        using (var connection = CreateConnection())
+        using (var connection = MQConnection.CreateConnection())
         //创建信道
         using (var channel = connection.CreateModel())
         {
@@ -111,7 +95,7 @@ class Program
     private static void HandlePublishConfirmsAsynchronously()
     {
         //建立连接
-        using (var connection = CreateConnection())
+        using (var connection = MQConnection.CreateConnection())
         //创建信道
         using (var channel = connection.CreateModel())
         {
